@@ -1,0 +1,210 @@
+/* Background update for the whole layout */
+/* 1. Remove space from the very top of the page */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. Remove the top margin from the status bar and the heading */
+.board-container {
+  padding-top: 1px;    /* Change this number to control exactly how close to the top you want it */
+}
+
+.status-bar {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.status-bar h2 {
+  margin-top: 0 !important; /* This is the main culprit */
+  line-height: 1;
+}
+body {
+  background-color: #f3e4ce; /* Dark background */
+  margin: 0;
+  color: #812b06;
+}
+
+/* Updated Layout Container */
+.game-layout {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  min-height: 100vh;
+  position: relative; /* Essential for the sidebar to anchor to this container */
+  background-color: #f3e4ce;
+  margin: 0;
+  padding: 0;
+}
+
+.board-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Space between turn text, button, and board */
+}
+
+/* Sidebar for captured pieces on the right */
+.sidebar-right {
+  position: absolute;
+  left: calc(50% + 270px); /* Centers board (50%) + board half-width + gap */
+  top: 50%;
+  transform: translateY(-50%); /* Centers sidebar vertically */
+  
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 180px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  
+  border: none;
+}
+
+.capture-box h4 {
+  margin: 0 0 10px 0;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #2c2929;
+  border-bottom: 1px ;
+  padding-bottom: 5px;
+}
+
+.small-piece {
+  font-size: 28px;
+}
+
+/* Your Original Styles preserved below */
+.board {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+aspect-ratio: 1 / 1;
+max-width: 90vw; /* Prevents overflow on small screens */
+  width: 480px;
+  margin: 0; /* Changed from '20px auto' to '0' */
+  border: 6px solid #812b06b8;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgb(184, 152, 152);
+}
+
+.square {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.white-square { background-color: #f0d9b5; }
+.black-square { background-color: #b58863; }
+
+.square span {
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.3);
+}
+
+
+/* Ensure the selected square stays on top of the last move highlight */
+.selected {
+  outline: 3px solid #f6f669;
+  background-color: #bbc347 !important;
+  z-index: 2;
+}
+.square:hover { transform: scale(1.1); }
+.selected { outline: 3px solid rgb(223, 238, 87); }
+
+.white-piece {
+  color: white;
+  text-shadow: 2px 2px 4px #000;
+}
+
+.black-piece { color: black; }
+
+.possible { box-shadow: inset 0 0 0 4px rgba(66, 186, 66, 0.764); }
+
+.capture {
+  background-color: rgba(255, 0, 0, 0.5);
+  border-radius: 5px;
+}
+
+.promotion-overlay {
+  position: fixed;
+  top:0; left:0; width:100vw; height:100vh;
+  background:rgba(0,0,0,0.6);
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:center; z-index:1000;
+}
+
+.promotion-overlay button {
+  font-size: 40px; margin:10px; padding:10px 20px; cursor:pointer;
+}
+
+.check-warning { color: #ff0000; animation: blink 1s infinite; }
+.check-highlight { background-color: rgba(255, 0, 0, 0.6) !important; }
+
+@keyframes blink { 50% { opacity: 0; } }
+
+.game-over { color: #2eb333; font-weight: bold; font-size: 24px; }
+.faded { opacity: 0.6; pointer-events: none; }
+
+.captured-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  font-size: 30px;
+}
+
+.reset-btn {
+  margin: 5px;
+  padding: 6px 12px;
+  background: #3d2b1f;
+  color: #f0d9b5;
+  border: 1px solid #812b06;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.reset-btn:hover { background-color: #a04010; }
+.status-bar h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+}
+.setup-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers vertically */
+  align-items: center;     /* Centers horizontally */
+  height: 100vh;
+  background-color: #f3e4ce;
+  color: rgb(17, 16, 16);
+}
+
+.setup-buttons {
+  display: flex;
+  flex-direction: column;  /* This stacks them one by one */
+  gap: 15px;               /* Space between the buttons */
+  margin-top: 30px;
+  width: 200px;            /* Optional: ensures all buttons are the same width */
+}
+
+.setup-buttons button {
+  padding: 15px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #d6956a84; /* Matching your chess theme */
+  color: #382a12;
+  border: 2px solid #812b06;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;             /* Fills the 200px container width */
+}
+
+.setup-buttons button:hover {
+  background-color: #812b06;
+  color: white;
+  transform: scale(1.05);
+}
