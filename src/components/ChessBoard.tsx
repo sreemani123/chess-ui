@@ -42,22 +42,38 @@ const ChessBoard = () => {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const startGame = (mins: number | null) => {
-    setBoard(initialBoard());
-    setTurn("white");
-    setGameOver(null);
-    setCapturedByWhite([]);
-    setCapturedByBlack([]);
-    
-    setMovedStatus({ whiteKing: false, whiteRook0: false, whiteRook7: false, blackKing: false, blackRook0: false, blackRook7: false });
-    if (mins === null) {
-      setIsTimed(false);
-    } else {
-      setIsTimed(true);
-      setWhiteTime(mins * 60);
-      setBlackTime(mins * 60);
-    }
-    setGameStarted(true);
-  };
+  setBoard(initialBoard());
+  setTurn("white");
+  setGameOver(null);
+
+  setSelected(null);
+  setPossibleMoves([]);
+  setInCheck(false);
+  setEnPassantTarget(null);
+  setPendingPromotion(null);
+
+  setCapturedByWhite([]);
+  setCapturedByBlack([]);
+
+  setMovedStatus({
+    whiteKing: false,
+    whiteRook0: false,
+    whiteRook7: false,
+    blackKing: false,
+    blackRook0: false,
+    blackRook7: false
+  });
+
+  if (mins === null) {
+    setIsTimed(false);
+  } else {
+    setIsTimed(true);
+    setWhiteTime(mins * 60);
+    setBlackTime(mins * 60);
+  }
+
+  setGameStarted(true);
+};
 
   useEffect(() => {
     if (!gameStarted || gameOver || !isTimed) {
