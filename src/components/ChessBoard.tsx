@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./ChessBoard.css";
 
 type Player = "white" | "black";
@@ -168,7 +168,13 @@ const ChessBoard = () => {
     setPendingPromotion(null);
   };
 
-  const getRawMoves = (row: number, col: number, symbol: string, player: Player, curBoard: (Piece | null)[][]): [number, number][] => {
+  const getRawMoves = useCallback((
+  row: number,
+  col: number,
+  symbol: string,
+  player: Player,
+  curBoard: (Piece | null)[][]
+): [number, number][] => {
     let m: [number, number][] = [];
     if (symbol === "♟") {
       const d = player === "white" ? -1 : 1;
@@ -214,7 +220,7 @@ const ChessBoard = () => {
       }
     }
     return m;
-  };
+  }, [enPassantTarget, movedStatus, inCheck]);
 
   useEffect(() => {
     const kingPos = findKing(turn, board);
