@@ -237,7 +237,7 @@ const ChessBoard = () => {
       if (hasLegal) break;
     }
     if (!hasLegal) setGameOver(currentlyInCheck ? `CHECKMATE! ${enemy.toUpperCase()} WINS` : "STALEMATE!");
-  }, [board, turn]);
+  }, [board, turn, getRawMoves]);
 
   const handleClick = (r: number, c: number) => {
     if (gameOver || !gameStarted) return;
