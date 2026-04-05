@@ -6,7 +6,7 @@ This project is a fully functional chess game built using React and TypeScript.
 
 ## 🚀 Live Demo
 
-https://your-vercel-link.vercel.app
+https://chess-ui-nine.vercel.app
 
 ---
 
